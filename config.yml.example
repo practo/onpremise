@@ -7,7 +7,7 @@
 # Mail Server #
 ###############
 
-# mail.backend: 'smtp'  # Use dummy if you want to disable email entirely
+mail.backend: 'dummy'
 # mail.host: 'localhost'
 # mail.port: 25
 # mail.username: ''
@@ -33,28 +33,46 @@
 # If this file ever becomes compromised, it's important to regenerate your a new key
 # Changing this value will result in all current sessions being invalidated.
 # A new key can be generated with `$ sentry config generate-secret-key`
-# system.secret-key: 'changeme'
+system.secret-key: '<enter a very secret-key here>'
 
 # The ``redis.clusters`` setting is used, unsurprisingly, to configure Redis
 # clusters. These clusters can be then referred to by name when configuring
 # backends such as the cache, digests, or TSDB backend.
-# redis.clusters:
-#   default:
-#     hosts:
-#       0:
-#         host: 127.0.0.1
-#         port: 6379
+#
+# Two types of clusters are currently supported:
+#
+#   rb.Cluster
+#   A redis blaster cluster is the traditional cluster used by most services
+#   within sentry. This is the default type cluster type.
+#
+#   rediscluster.StrictRedisCluster
+#   An official Redis Cluster can be configured by marking the named group with
+#   the ``is_redis_cluster: True`` flag. In future versions of Sentry more
+#   services will require this type of cluster.
+#
+redis.clusters:
+  default:
+    hosts:
+      0:
+        host: 127.0.0.1
+        port: 6379
 
 ################
 # File storage #
 ################
 
 # Uploaded media uses these `filestore` settings. The available
-# backends are either `filesystem` or `s3`.
+# backends are: `filesystem`, `gcs`, and `s3`.
 
-# filestore.backend: 'filesystem'
+filestore.backend: 'filesystem'
+filestore.options:
+  location: '/tmp/sentry-files'
+
+# NOTE: See docs/filestore for instructions on configuring the shell environment
+#       with authentication credentials for Google Cloud.
+# filestore.backend: 'gcs'
 # filestore.options:
-#   location: '/tmp/sentry-files'
+#   bucket_name: 's3-bucket-name'
 
 # filestore.backend: 's3'
 # filestore.options:

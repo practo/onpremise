@@ -77,3 +77,6 @@ data/
 # sentry configuration
 config.yml
 sentry.conf.py
+
+# custom configuration
+fixtures.yml

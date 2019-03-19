@@ -1,0 +1,12 @@
+[
+  {
+    "command": "sentry run worker",
+    "name": "sentry-worker",
+    "resources": {
+      "requestCpu": "100m",
+      "requestMemory": "200Mi",
+      "limitCpu": "300m",
+      "limitMemory": "500Mi"
+    }
+  }
+]

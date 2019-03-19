@@ -1,7 +1,8 @@
-.git
-.gitignore
-.dockerignore
-*.pyc
-*.tar
-data/
-*.example
+# Ignore everything first
+*
+
+# Load what's required
+!*.py
+!docker-entrypoint.sh
+!requirements.txt
+!schema.sql

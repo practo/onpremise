@@ -8,5 +8,15 @@
       "limitCpu": "300m",
       "limitMemory": "500Mi"
     }
+  },
+  {
+    "command": "sentry run cron",
+    "name": "sentry-cron",
+    "resources": {
+      "requestCpu": "100m",
+      "requestMemory": "200Mi",
+      "limitCpu": "300m",
+      "limitMemory": "500Mi"
+    }
   }
 ]

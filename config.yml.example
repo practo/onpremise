@@ -34,6 +34,7 @@ mail.backend: 'dummy'
 # Changing this value will result in all current sessions being invalidated.
 # A new key can be generated with `$ sentry config generate-secret-key`
 system.secret-key: '<enter a very secret-key here>'
+system.url-prefix: 'https://sentry-<instance_name>.practodev.com'
 
 # The ``redis.clusters`` setting is used, unsurprisingly, to configure Redis
 # clusters. These clusters can be then referred to by name when configuring

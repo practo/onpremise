@@ -4,5 +4,4 @@
 *.pyc
 *.tar
 data/
-config.yml.example
-sentry.conf.py.example
+*.example

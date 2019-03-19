@@ -113,6 +113,22 @@ SENTRY_TSDB = 'sentry.tsdb.redis.RedisTSDB'
 
 SENTRY_DIGESTS = 'sentry.digests.backends.redis.RedisBackend'
 
+############
+# Features #
+############
+
+# Should Sentry allow users to create new accounts?
+
+SENTRY_FEATURES['auth:register'] = False
+
+##########
+# Beacon #
+##########
+
+# Controls the Beacon.
+
+SENTRY_BEACON = False
+
 ##############
 # Web Server #
 ##############

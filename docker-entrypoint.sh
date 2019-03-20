@@ -5,7 +5,9 @@ if [[ -z ${run_migration} ]]; then
   if [[ -z ${worker_cmd} ]]; then
     sentry run web
   else
-    eval ${worker_cmd}
+    mkdir -p "$SENTRY_FILESTORE_DIR"
+    chown -R sentry "$SENTRY_FILESTORE_DIR"
+    eval 'gosu sentry ${worker_cmd}'
   fi
 else
   # Loads initial schema if doesn't already exists

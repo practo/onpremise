@@ -41,7 +41,7 @@ mail.backend: 'dummy'
 # A new key can be generated with `$ sentry config generate-secret-key`
 
 system.secret-key: '<enter a very secret-key here>'
-system.url-prefix: 'https://sentry-<instance_name>.practodev.com'
+system.url-prefix: 'https://sentry9-<instance_name>.practodev.com'
 system.admin-email: 'admin@practo.com'
 
 # The ``redis.clusters`` setting is used, unsurprisingly, to configure Redis

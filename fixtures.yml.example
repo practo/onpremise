@@ -5,8 +5,8 @@ admin:
 teams:
   - name: team1
     projects:
-      project1: https://6329872b26ca4810a5e2d3c69ad4bc8e:e8936d659d4a4edfb12c7aa792b89ef6@sentry-<instance_name>.practodev.com/23
+      project1: https://6329872b26ca4810a5e2d3c69ad4bc8e:e8936d659d4a4edfb12c7aa792b89ef6@sentry9-<instance_name>.practodev.com/23
   - name: team2
     projects:
-      project2: https://03895c101c7d49349fba727b88550e74:3691a2556ee54ae09a5056d4c1d6de1e@sentry-<instance_name>.practodev.com/35
-      project3: https://89d3e5b6c4c14ab788e68241f49aebe6:6ab2d379d2904e628c4880cb77ed15e1@sentry-<instance_name>.practodev.com/92
+      project2: https://03895c101c7d49349fba727b88550e74:3691a2556ee54ae09a5056d4c1d6de1e@sentry9-<instance_name>.practodev.com/35
+      project3: https://89d3e5b6c4c14ab788e68241f49aebe6:6ab2d379d2904e628c4880cb77ed15e1@sentry9-<instance_name>.practodev.com/92

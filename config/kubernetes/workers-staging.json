@@ -1,5 +1,6 @@
 [
   {
+    "directory": "/usr/src/sentry",
     "command": "sentry run worker",
     "name": "sentry-worker",
     "resources": {
@@ -10,6 +11,7 @@
     }
   },
   {
+    "directory": "/usr/src/sentry",
     "command": "sentry run cron",
     "name": "sentry-cron",
     "resources": {

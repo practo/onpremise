@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set +e
+set -e
 
 if [[ -z ${run_migration} ]]; then
   if [[ -z ${worker_cmd} ]]; then

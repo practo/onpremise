@@ -7347,6 +7347,7 @@ SELECT pg_catalog.setval('public.sentry_processingissue_id_seq', 1, false);
 -- Data for Name: sentry_project; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.sentry_project VALUES (1, 'Internal', false, '2019-03-20 18:56:55.174848+00', 0, 'internal', 1, NULL, NULL, 0, NULL);
 
 
 --
@@ -7425,6 +7426,7 @@ SELECT pg_catalog.setval('public.sentry_projectintegration_id_seq', 1, false);
 -- Data for Name: sentry_projectkey; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.sentry_projectkey VALUES (1, 1, '5c627d675eec45a59e2b428616694879', '2934d4d54ba74740bcef39949e65fd1f', '2019-03-20 18:56:55.183167+00', 1, 'Default', 0, NULL, NULL, '{}');
 
 
 --
@@ -7438,6 +7440,9 @@ SELECT pg_catalog.setval('public.sentry_projectkey_id_seq', 1, true);
 -- Data for Name: sentry_projectoptions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.sentry_projectoptions VALUES (1, 1, 'sentry:relay-rev', 'gAJYIAAAAGVlMzI4NTk2NGI0MTExZTliY2I2MDI0MmFjMTEwMDA3cQEu');
+INSERT INTO public.sentry_projectoptions VALUES (2, 1, 'sentry:relay-rev-lastchange', 'gAJjZGF0ZXRpbWUKZGF0ZXRpbWUKcQFVCgfjAxQSODcERl5jcHl0egpfVVRDCnECKVJxA4ZScQQu');
+INSERT INTO public.sentry_projectoptions VALUES (3, 1, 'sentry:origins', 'gAJdcQFVASphLg==');
 
 
 --
@@ -7503,6 +7508,7 @@ SELECT pg_catalog.setval('public.sentry_projectsymcachefile_id_seq', 1, false);
 -- Data for Name: sentry_projectteam; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.sentry_projectteam VALUES (1, 1, 1);
 
 
 --
@@ -7672,6 +7678,7 @@ SELECT pg_catalog.setval('public.sentry_reprocessingreport_id_seq', 1, false);
 -- Data for Name: sentry_rule; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.sentry_rule VALUES (1, 1, 'Send a notification for new issues', 'eJxlj80OAiEMhO99ETgRd/0/GqNHLzzAhgCrJAiEosm+vXRl48FbZzr9JuUmdSCZjsG44mJABqkH7tMauEmbunKmWts6oA0lTyK/vEXxOxCjy1gGtDYM9l0z4kqGrPpC8rwkK2YHqFAypZeqPVUdqOoI97+SlhMhFjdOjX6bxYw+6cbtVl/wUxX9IE0/Ke9p7AHFBx5HTWU=', '2019-03-20 18:56:55.188848+00', 0, NULL);
 
 
 --
@@ -7685,6 +7692,11 @@ SELECT pg_catalog.setval('public.sentry_rule_id_seq', 1, true);
 -- Data for Name: sentry_savedsearch; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.sentry_savedsearch VALUES (1, 1, 'Unresolved Issues', 'is:unresolved', '2019-03-20 18:56:55.195076+00', true, NULL);
+INSERT INTO public.sentry_savedsearch VALUES (2, 1, 'Needs Triage', 'is:unresolved is:unassigned', '2019-03-20 18:56:55.201935+00', false, NULL);
+INSERT INTO public.sentry_savedsearch VALUES (3, 1, 'Assigned To Me', 'is:unresolved assigned:me', '2019-03-20 18:56:55.206026+00', false, NULL);
+INSERT INTO public.sentry_savedsearch VALUES (4, 1, 'My Bookmarks', 'is:unresolved bookmarks:me', '2019-03-20 18:56:55.208561+00', false, NULL);
+INSERT INTO public.sentry_savedsearch VALUES (5, 1, 'New Today', 'is:unresolved age:-24h', '2019-03-20 18:56:55.211617+00', false, NULL);
 
 
 --

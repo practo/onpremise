@@ -18,7 +18,7 @@ def get_user(username, email, password):
         user = User.objects.create_superuser(username=username, email=email, password=password)
     else:
         user = existing[0]
-        user.password = password
+        user.set_password(password)
         user.is_superuser = True
         user.save()
     return user

@@ -73,10 +73,3 @@ docker-compose.override.yml
 
 *.tar
 data/
-
-# sentry configuration
-config.yml
-sentry.conf.py
-
-# custom configuration
-fixtures.yml

@@ -9,7 +9,7 @@ Official bootstrap for running your own [Sentry](https://sentry.io/) with [Docke
 ## How it works
 
 1. The image uses `sentry:onbuild` image which automatically loads plugins and set ups the configuration files in place.
-2. `initialize.py` is used to check if the connected database has any tables, if not it loads the dump of the schema. This is done to avoid higher wait times in running sentry migrations which can take up to 5 mins.
+2. `initialize.py` is used to check if the connected database has any tables, if not it loads the dump of the schema. This is done to avoid higher wait times in running sentry migrations which can take up to 5 mins. It also checks if the database exists and creates if doesn't with the given credentials.
 3. On next run, this won't change anything with the current database. After this file completes it jobs, a `sentry upgrade` is used to migrate latest changes after the schema dump was taken.
 4. After this fixtures are loaded using `sync_fixtures.py`. A fixture file must be of format:
 ```yaml

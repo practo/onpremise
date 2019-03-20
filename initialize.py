@@ -26,6 +26,7 @@ if __name__ == '__main__':
     connection.ensure_connection()
   except OperationalError as error:
     if 'database "' + params['database'] + '" does not exist' in error.message:
+      print('Creating database "' + params['database'] + '"')
       create_database(params)
     else:
       raise error
@@ -34,6 +35,7 @@ if __name__ == '__main__':
   if connection.introspection.table_names():
     sys.exit(0)
 
+  print('Loading inital schema...')
   sql_file = open('schema.sql', 'U')
 
   try:

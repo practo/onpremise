@@ -1,4 +1,4 @@
-[Custom Implementation](README-custom.md)
+[Custom Integration](README-custom.md)
 
 # Sentry On-Premise
 

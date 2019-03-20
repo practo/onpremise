@@ -1,8 +1,9 @@
-# Ignore everything first
-*
-
-# Load what's required
-!*.py
-!docker-entrypoint.sh
-!requirements.txt
-!schema.sql
+.git
+.gitignore
+.dockerignore
+Makefile
+README.md
+*.pyc
+*.tar
+docker-compose.yml
+data/

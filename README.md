@@ -1,3 +1,5 @@
+[Custom Implementation](README-custom.md)
+
 # Sentry On-Premise
 
 Official bootstrap for running your own [Sentry](https://sentry.io/) with [Docker](https://www.docker.com/).
@@ -5,52 +7,42 @@ Official bootstrap for running your own [Sentry](https://sentry.io/) with [Docke
 ## Requirements
 
  * Docker 1.10.0+
+ * Compose 1.6.0+ _(optional)_
 
-## How it works
+## Up and Running
 
-1. The image uses `sentry:onbuild` image which automatically loads plugins and set ups the configuration files in place.
-2. `initialize.py` is used to check if the connected database has any tables, if not it loads the dump of the schema. This is done to avoid higher wait times in running sentry migrations which can take up to 5 mins. It also checks if the database exists and creates if doesn't with the given credentials.
-3. On next run, this won't change anything with the current database. After this file completes it jobs, a `sentry upgrade` is used to migrate latest changes after the schema dump was taken.
-4. After this fixtures are loaded using `sync_fixtures.py`. A fixture file must be of format:
-```yaml
-# admin details
-admin:
-  
-  # username for creating superuser
-  username:
-  
-  # used at the time of creation and also searching for existing superuser
-  # if found, password and superuser permission is updated irrespective
-  # of the fact that a change is required
-  email:
-  
-  # admin login password
-  password:
+Assuming you've just cloned this repository, the following steps
+will get you up and running in no time!
 
-# list of teams and their respective projects
-teams:
-  
-  # team name
-  - name:
-    # team projects
-    projects:
-      project_name1: dsn1
-      project_name2: dsn2
+There may need to be modifications to the included `docker-compose.yml` file to accommodate your needs or your environment. These instructions are a guideline for what you should generally do.
+
+1. `docker volume create --name=sentry-data && docker volume create --name=sentry-postgres` - Make our local database and sentry volumes
+    Docker volumes have to be created manually, as they are declared as external to be more durable.
+2. `cp -n .env.example .env` - create env config file
+3. `docker-compose build` - Build and tag the Docker services
+4. `docker-compose run --rm web config generate-secret-key` - Generate a secret key.
+    Add it to `.env` as `SENTRY_SECRET_KEY`.
+5. `docker-compose run --rm web upgrade` - Build the database.
+    Use the interactive prompts to create a user account.
+6. `docker-compose up -d` - Lift all services (detached/background mode).
+7. Access your instance at `localhost:9000`!
+
+## Securing Sentry with SSL/TLS
+
+If you'd like to protect your Sentry install with SSL/TLS, there are
+fantastic SSL/TLS proxies like [HAProxy](http://www.haproxy.org/)
+and [Nginx](http://nginx.org/).
+
+## Updating Sentry
+
+Updating Sentry using Compose is relatively simple. Just use the following steps to update. Make sure that you have the latest version set in your Dockerfile. Or use the latest version of this repository.
+
+Use the following steps after updating this repository or your Dockerfile:
+```sh
+docker-compose build # Build the services again after updating
+docker-compose run --rm web upgrade # Run new migrations
+docker-compose up -d # Recreate the services
 ```
-
-DSN is of format `<scheme>://<public_key>:<secret_key>@<hostname>/<project_id>`. All the parts are mandatory:
-* `schema`: should match with the scheme in `system.url-prefix` config.
-* `hostname`: should match with hostname in `system.url-prefix` config.
-* `project_id`: database incremental id.
-    * If not present but project with mapped name is already present, previous project is deleted (since we can't update all the foreign joins) and new one is created.
-    * If present and no project with mapped name exists, then the values are updated directly.
-    * If not present by mapped name and id, then new project is created.
-    * If present both by name and id and they both represent same object, then changes are made to the same project.
-    * If present both by name and id but represent two different information, then the values are skipped as this leads to illegal state.
-    * If in configuration, two teams have same project name or two dsns have same project id then error is thrown and config validation fails.
-
-If team does not exists then it is created else irrespectively the slug is always updated with lower case team name. Team is searched within static organization.
-If a project key already exists then it is updated with new values else new one is created.    
 
 ## Resources
 

@@ -10,8 +10,6 @@ if [[ -z ${run_migration} ]]; then
 else
   # Loads initial schema if doesn't already exists
   sentry exec initialize.py
-  # Runs sentry migrations
-  sentry upgrade
   # Load fixtures
   sentry exec sync_fixtures.py
 fi

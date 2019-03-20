@@ -1,7 +1,7 @@
 [
   {
     "directory": "/usr/src/sentry",
-    "command": "sentry run worker",
+    "command": "/entrypoint.sh run worker",
     "name": "sentry-worker",
     "resources": {
       "requestCpu": "100m",
@@ -12,7 +12,7 @@
   },
   {
     "directory": "/usr/src/sentry",
-    "command": "sentry run cron",
+    "command": "/entrypoint.sh run cron",
     "name": "sentry-cron",
     "resources": {
       "requestCpu": "100m",

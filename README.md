@@ -1,3 +1,5 @@
+[Custom Integration](README-custom.md)
+
 # Sentry On-Premise
 
 Official bootstrap for running your own [Sentry](https://sentry.io/) with [Docker](https://www.docker.com/).

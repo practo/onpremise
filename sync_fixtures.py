@@ -1,4 +1,7 @@
 from urlparse import urlsplit
+from django.db import connection
+from django.db.models import get_app, get_models
+from django.core.management.color import no_style
 
 import sys
 import yaml
@@ -153,6 +156,17 @@ def parse(filename):
                 print('Error in team: {}, project: {} - {}'.format(team_name, project_name, error))
     return admin_details, projects, without_errors
 
+def update_sequences():
+    app = get_app('sentry')
+    models = get_models(app, include_auto_created=True)
+    statements = connection.ops.sequence_reset_sql(no_style(), models)
+    cursor = connection.cursor()
+    try:
+        for sql in statements:
+            cursor.execute(sql)
+        connection.commit()
+    finally:
+        cursor.close()
 
 def main():
     print('Loading Fixtures...')
@@ -185,6 +199,10 @@ def main():
             sync_project_key(project_info['public_key'], project_info['private_key'], project_id)
         except Exception as error:
             print('Skipping team: {}, project: {} - {}'.format(team_name, project_name, error))
+
+    print('Updating sequences...')
+    update_sequences()
+
     print('Sync completed')
 
 

@@ -48,7 +48,7 @@ def assign_team_permissions(user, organization, team):
     OrganizationMemberTeam.objects.get_or_create(organizationmember=user_oragnization, team=team)
 
 
-def get_project(organization, project_name, project_id):
+def get_project(organization, project_name, project_id, platform):
     existing_by_name = Project.objects.filter(organization=organization, name=project_name)
     existing_by_id = Project.objects.filter(id=project_id)
     project_slug = project_name.lower()
@@ -57,16 +57,31 @@ def get_project(organization, project_name, project_id):
         project.name = project_name
         project.organization = organization
         project.slug = project_slug
+        project.platform = platform
         project.save()
     elif existing_by_name and not existing_by_id:
         print('Deleting previous project with project id: {}'.format(project_id))
         project = existing_by_name[0]
         project.delete()
-        project = Project.objects.create(organization=organization, name=project_name, slug=project_slug, id=project_id)
+        project = Project.objects.create(
+            organization=organization,
+            name=project_name,
+            slug=project_slug,
+            id=project_id,
+            platform=platform
+        )
     elif not existing_by_name and not existing_by_id:
-        project = Project.objects.create(organization=organization, name=project_name, slug=project_slug, id=project_id)
+        project = Project.objects.create(
+            organization=organization,
+            name=project_name,
+            slug=project_slug,
+            id=project_id,
+            platform=platform
+        )
     elif existing_by_name[0] == existing_by_id[0]:
         project = existing_by_name[0]
+        project.platform = platform
+        project.save()
     else:
         raise ValueError(
             'Different project with name {} and id {} already exists, can\'t merge'.format(project_name, project_id)
@@ -125,8 +140,11 @@ def parse(filename):
     without_errors = True
     for team in fixtures['teams']:
         team_name = team['name']
-        for project_name, dsn in team['projects'].items():
+        for project in team['projects']:
             try:
+                project_name = project['name']
+                dsn = project['dsn']
+                platform = project.get('platform', None)
                 public_key, private_key, project_id = parse_dsn(dsn)
                 if project_id in projects:
                     raise ValueError(
@@ -142,15 +160,16 @@ def parse(filename):
                             project_name
                         )
                     )
-                project = dict(
+                project_info = dict(
                     id=project_id,
                     name=project_name,
                     public_key=public_key,
                     private_key=private_key,
-                    team=team_name
+                    team=team_name,
+                    platform=platform
                 )
-                projects[project_id] = project
-                projects_by_name[project_name] = project
+                projects[project_id] = project_info
+                projects_by_name[project_name] = project_info
             except Exception as error:
                 without_errors = False
                 print('Error in team: {}, project: {} - {}'.format(team_name, project_name, error))
@@ -188,7 +207,7 @@ def main():
         team_name = project_info['team']
         try:
             print('Syncing team: {}, project: {}'.format(team_name, project_name))
-            project = get_project(organization, project_name, project_id)
+            project = get_project(organization, project_name, project_id, project_info['platform'])
             if team_name not in teams:
                 team = get_team(organization, team_name)
                 assign_team_permissions(user, organization, team)

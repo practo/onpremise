@@ -160,9 +160,13 @@ def update_sequences():
     app = get_app('sentry')
     models = get_models(app, include_auto_created=True)
     statements = connection.ops.sequence_reset_sql(no_style(), models)
-    with connection.cursor() as cursor:
-        for sql in sequence_sql:
+    cursor = connection.cursor()
+    try:
+        for sql in statements:
             cursor.execute(sql)
+        connection.commit()
+    finally:
+        cursor.close()
 
 def main():
     print('Loading Fixtures...')

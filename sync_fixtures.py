@@ -120,8 +120,6 @@ def parse_dsn(url):
             raise MalformedUrlException(url, 'project id')
         if not url_split.username:
             raise MalformedUrlException(url, 'public key')
-        if not url_split.password:
-            raise MalformedUrlException(url, 'private key')
         return url_split.username, url_split.password, path_split[1]
     except not MalformedUrlException:
         raise MalformedUrlException(url, 'url')

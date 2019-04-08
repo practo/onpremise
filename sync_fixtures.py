@@ -96,7 +96,8 @@ def sync_project_key(public_key, private_key, project_id):
     else:
         project_key = existing[0]
         project_key.public_key = public_key
-        project_key.secret_key = private_key
+        if private_key is not None:
+            project_key.secret_key = private_key
         project_key.save()
 
 

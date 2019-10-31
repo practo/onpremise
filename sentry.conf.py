@@ -223,10 +223,18 @@ SENTRY_DIGESTS = 'sentry.digests.backends.redis.RedisBackend'
 # Uploaded media uses these `filestore` settings. The available
 # backends are either `filesystem` or `s3`.
 
-SENTRY_OPTIONS['filestore.backend'] = 'filesystem'
-SENTRY_OPTIONS['filestore.options'] = {
-    'location': env('SENTRY_FILESTORE_DIR'),
-}
+SENTRY_OPTIONS['filestore.backend'] = env('SENTRY_FILESTORE_BACKEND', 'filesystem')
+if SENTRY_OPTIONS['filestore.backend'] == 'filesystem':
+    SENTRY_OPTIONS['filestore.options'] = {
+        'location': env('SENTRY_FILESTORE_DIR'),
+    }
+elif SENTRY_OPTIONS['filestore.backend'] == 's3':
+    SENTRY_OPTIONS['filestore.options'] = {
+        'acl': 'private',
+        'bucket_name': env('SENTRY_FILESTORE_BUCKET_NAME'),
+        'location': env('SENTRY_FILESTORE_DIR'),
+        'region_name': env('SENTRY_FILESTORE_REGION_NAME'),
+    }
 
 ##############
 # Web Server #
@@ -304,3 +312,10 @@ if 'GITHUB_APP_ID' in os.environ:
 if 'BITBUCKET_CONSUMER_KEY' in os.environ:
     BITBUCKET_CONSUMER_KEY = env('BITBUCKET_CONSUMER_KEY')
     BITBUCKET_CONSUMER_SECRET = env('BITBUCKET_CONSUMER_SECRET')
+
+if 'GOOGLE_CLIENT_ID' in os.environ:
+    GOOGLE_CLIENT_ID = env('GOOGLE_CLIENT_ID')
+    GOOGLE_CLIENT_SECRET = env('GOOGLE_CLIENT_SECRET')
+
+if 'SENTRY_FEATURE_GITHUB_APPS' in os.environ:
+    SENTRY_FEATURES['organizations:github-apps'] = bool(env('SENTRY_FEATURE_GITHUB_APPS'))

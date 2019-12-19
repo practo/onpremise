@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+cp /usr/src/sentry/env /usr/src/sentry/.env
+
 if [[ -z ${run_migration} ]]; then
   if [[ -z ${worker_cmd} ]]; then
     sentry run web

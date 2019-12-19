@@ -12,8 +12,12 @@ if [[ -z ${run_migration} ]]; then
     eval ${worker_cmd}
   fi
 else
-  # Loads initial schema if doesn't already exists
-  sentry exec initialize.py
-  # Load fixtures
-  sentry exec sync_fixtures.py
+  if [[ $environment == "staging" ]]; then
+    # Loads initial schema if doesn't already exists
+    sentry exec initialize.py
+    # Load fixtures
+    sentry exec sync_fixtures.py
+  else
+    sentry upgrade
+  fi
 fi

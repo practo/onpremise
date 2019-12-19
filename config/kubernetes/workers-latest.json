@@ -1,0 +1,24 @@
+[
+  {
+    "directory": "/usr/src/sentry",
+    "command": "sentry run worker",
+    "name": "sentry-worker",
+    "resources": {
+      "requestCpu": "100m",
+      "requestMemory": "350Mi",
+      "limitCpu": "300m",
+      "limitMemory": "500Mi"
+    }
+  },
+  {
+    "directory": "/usr/src/sentry",
+    "command": "sentry run cron",
+    "name": "sentry-cron",
+    "resources": {
+      "requestCpu": "100m",
+      "requestMemory": "200Mi",
+      "limitCpu": "300m",
+      "limitMemory": "500Mi"
+    }
+  }
+]

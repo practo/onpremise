@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-cp /usr/src/sentry/env /usr/src/sentry/.env
+if [[ -f /etc/sentry/env.sh ]]; then
+  source /etc/sentry/env.sh
+fi
 
 if [[ -z ${run_migration} ]]; then
   if [[ -z ${worker_cmd} ]]; then

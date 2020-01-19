@@ -3,6 +3,7 @@
     "directory": "/usr/src/sentry",
     "command": "sentry run worker",
     "name": "sentry-worker",
+    "minReplicas": 5,
     "resources": {
       "requestCpu": "200m",
       "requestMemory": "600Mi",

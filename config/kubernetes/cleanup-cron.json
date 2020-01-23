@@ -1,0 +1,13 @@
+[
+    {
+        "name": "prod-mumbai-sentry9-cleanup",
+        "command": "sentry run cleanup --days 90 -q",
+        "schedule": "0 20 * * *",
+        "resources": {
+            "limitCpu": "600m",
+            "limitMemory": "600Mi",
+            "requestCpu": "500m",
+            "requestMemory": "500Mi"
+        }
+    }
+]

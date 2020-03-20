@@ -7,7 +7,7 @@
     "autoscaler_type": "hpa",
     "min_replicas": 5,
     "max_replicas": 20,
-    "target_cpu": 75
+    "target_cpu": 75,
     "resources": {
       "requestCpu": "200m",
       "requestMemory": "600Mi",

@@ -9,9 +9,9 @@
     "max_replicas": 20,
     "target_cpu": 75,
     "resources": {
-      "requestCpu": "200m",
+      "requestCpu": "500m",
       "requestMemory": "600Mi",
-      "limitCpu": "400m",
+      "limitCpu": "600m",
       "limitMemory": "900Mi"
     }
   },

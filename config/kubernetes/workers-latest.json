@@ -5,8 +5,8 @@
     "name": "sentry-worker",
     "replicas": 5,
     "autoscaler_type": "hpa",
-    "min_replicas": 5,
-    "max_replicas": 20,
+    "min_replicas": 2,
+    "max_replicas": 7,
     "target_cpu": 75,
     "resources": {
       "requestCpu": "500m",

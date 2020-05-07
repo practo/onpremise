@@ -5,9 +5,9 @@
     "name": "sentry-worker",
     "resources": {
       "requestCpu": "100m",
-      "requestMemory": "350Mi",
+      "requestMemory": "700Mi",
       "limitCpu": "300m",
-      "limitMemory": "500Mi"
+      "limitMemory": "900Mi"
     }
   },
   {

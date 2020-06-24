@@ -4,9 +4,9 @@
     "command": "sentry run worker",
     "name": "sentry-worker",
     "resources": {
-      "requestCpu": "100m",
+      "requestCpu": "300m",
       "requestMemory": "700Mi",
-      "limitCpu": "300m",
+      "limitCpu": "500m",
       "limitMemory": "900Mi"
     }
   },
